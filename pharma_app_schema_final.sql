@@ -11,7 +11,6 @@ INSERT INTO roles (nom) VALUES
 ('livreur'), 
 ('pharmacien');
 
-
 -- Table users
 CREATE TABLE users (
     id BIGINT PRIMARY KEY AUTO_INCREMENT,
@@ -26,12 +25,13 @@ CREATE TABLE users (
     FOREIGN KEY (role_id) REFERENCES roles(id)
 );
 
-
 -- Table verifications_pharmaciens
 CREATE TABLE verifications_pharmaciens (
     id BIGINT PRIMARY KEY AUTO_INCREMENT,
     user_id BIGINT NOT NULL,
     numero_licence VARCHAR(100) NOT NULL,
+    numero_agrement VARCHAR(100) NOT NULL,
+    siret VARCHAR(100) NOT NULL,
     nom_pharmacie VARCHAR(150),
     adresse_pharmacie TEXT,
     document_justificatif VARCHAR(255),
@@ -41,7 +41,6 @@ CREATE TABLE verifications_pharmaciens (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
-
 
 -- Table pharmacies
 CREATE TABLE pharmacies (
@@ -56,7 +55,6 @@ CREATE TABLE pharmacies (
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
-
 -- Table categories
 CREATE TABLE categories (
     id BIGINT PRIMARY KEY AUTO_INCREMENT,
@@ -65,7 +63,6 @@ CREATE TABLE categories (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
-
 
 -- Table medicaments
 CREATE TABLE medicaments (
@@ -83,7 +80,6 @@ CREATE TABLE medicaments (
     FOREIGN KEY (pharmacie_id) REFERENCES pharmacies(id) ON DELETE CASCADE
 );
 
-
 -- Table categorie_medicament (pivot many-to-many)
 CREATE TABLE categorie_medicament (
     id BIGINT PRIMARY KEY AUTO_INCREMENT,
@@ -92,7 +88,6 @@ CREATE TABLE categorie_medicament (
     FOREIGN KEY (medicament_id) REFERENCES medicaments(id) ON DELETE CASCADE,
     FOREIGN KEY (categorie_id) REFERENCES categories(id) ON DELETE CASCADE
 );
-
 
 -- Table commandes
 CREATE TABLE commandes (
@@ -106,7 +101,6 @@ CREATE TABLE commandes (
     FOREIGN KEY (client_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
-
 -- Table commande_medicament (pivot)
 CREATE TABLE commande_medicament (
     id BIGINT PRIMARY KEY AUTO_INCREMENT,
@@ -117,7 +111,6 @@ CREATE TABLE commande_medicament (
     FOREIGN KEY (commande_id) REFERENCES commandes(id) ON DELETE CASCADE,
     FOREIGN KEY (medicament_id) REFERENCES medicaments(id) ON DELETE CASCADE
 );
-
 
 -- Table livraisons
 CREATE TABLE livraisons (
