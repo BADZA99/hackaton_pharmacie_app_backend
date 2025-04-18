@@ -11,8 +11,8 @@ class VerificationPharmacien extends Controller
     public function ajout(Request $request)
     {
         $request->validate([
-            'user_id' => 'required|exists:users,id',
-            'numero_licence' => 'required|string|max:100',
+        
+    
             'numero_agrement' => 'required|string|max:100',
             'siret' => 'required|string|max:100',
             'nom_pharmacie' => 'nullable|string|max:150',
@@ -31,15 +31,15 @@ class VerificationPharmacien extends Controller
         }
 
         $verification = ModelsVerificationPharmacien::create([
-            'user_id' => $request->user_id,
-            'numero_licence' => $request->numero_licence,
+         
+   
             'numero_agrement' => $request->numero_agrement,
             'siret' => $request->siret,
             'nom_pharmacie' => $request->nom_pharmacie,
             'adresse_pharmacie' => $request->adresse_pharmacie,
-            'document_justificatif' => $fileName, // Enregistre le nom du fichier ou null
+            'document_justificatif' => $fileName, 
             'statut' => 'en_attente',
-            'commentaire_admin' => $request->commentaire_admin,
+            'commentaire_admin' => 'pas encore valide',
             'created_at' => now(),
             'updated_at' => now(),
         ]);
@@ -85,6 +85,17 @@ class VerificationPharmacien extends Controller
         return response()->json([
             'message' => 'Vérification approuvée avec succès.',
             'verification' => $verification,
+        ], 200);
+    }
+
+    // get all verifications
+    public function getAll()
+    {
+        $verifications = ModelsVerificationPharmacien::all();
+
+        return response()->json([
+            'message' => 'Toutes les vérifications sont retournées avec succès.',
+            'verifications' => $verifications,
         ], 200);
     }
 }

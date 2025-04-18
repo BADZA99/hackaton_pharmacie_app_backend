@@ -12,7 +12,7 @@ class VerificationPharmacien extends Model
     protected $table = 'verifications_pharmaciens';
 
     protected $fillable = [
-        'user_id',
+        // 'user_id',
         'numero_agrement',
         'siret',
         'nom_pharmacie',
@@ -25,7 +25,7 @@ class VerificationPharmacien extends Model
     ];
 
     protected $hidden = [
-        'created_at',
+  
         'updated_at',
         // 'commentaire_admin',
     ];
