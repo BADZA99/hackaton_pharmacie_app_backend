@@ -15,8 +15,7 @@ Route::post('/login', [Authcontroller::class, 'login']);
 
 Route::post('/logout', [Authcontroller::class, 'logout']);
 
-Route::get('/loggedUser', [Authcontroller::class, 'getLoggedUser']);
-
+Route::middleware('auth:sanctum')->get('/user', [Authcontroller::class, 'getLoggedUser']);
 
 // verification pharmacien
 Route::post('/verification-pharmacien/ajout', [VerificationPharmacien::class, 'ajout']);
